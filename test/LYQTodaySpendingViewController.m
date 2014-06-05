@@ -61,6 +61,7 @@
     //Create AddSpending Instance for taking user input
     
     _GlobalObj = [LYQGlobalVariable sharedGlobal];
+    _GlobalObj.todaySpending = 0;
    _AddSpendingObj = [[LYQAddSpending alloc] init];
     _CateIndicator = 10; //first initialze this indicator as 10, means empty
     
@@ -85,7 +86,10 @@
 
 - (IBAction)BackButton:(id)sender {
     [self.delegate todaySpendingViewControllerDidFinish:self];
-
+    /*for(LYQAddSpending * temp in _GlobalObj.item)
+    {
+        _GlobalObj.todaySpending += temp.add;
+    }*/
 }
 
 - (IBAction)submit:(id)sender
@@ -120,6 +124,15 @@
         //now store temp into Global array for future use
         [_GlobalObj.item addObject:temp ]; //add one item to "item" array
         _CateIndicator = 10; //reset back to 10;
+        
+        //prepare for delegate to get back to UserMainUI
+        [self.delegate todaySpendingViewControllerDidFinish:self];
+        //calculate spending for UserMainUI use
+        for(LYQAddSpending * temp in _GlobalObj.item)
+        {
+            _GlobalObj.todaySpending += temp.add;
+        }
+        
     }
     
 }

@@ -7,9 +7,12 @@
 //
 
 #import "LYQUserMainViewController.h"
+#import "LYQGlobalVariable.h"
 
 @interface LYQUserMainViewController ()
+@property (nonatomic) IBOutlet UITextField *TodaySpendingField;
 
+@property (nonatomic)LYQGlobalVariable * GlobalObj; //declare Global singleton class obj
 @end
 
 @implementation LYQUserMainViewController
@@ -27,6 +30,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _GlobalObj= [LYQGlobalVariable sharedGlobal];
+   
+    
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSString * temp =[NSString stringWithFormat:@"%1.2f", _GlobalObj.todaySpending];
+    _TodaySpendingField.text = temp;
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,6 +53,7 @@
     if([[segue identifier] isEqualToString:@"showTodaySpending"])
     {
         [[segue destinationViewController]setDelegate:self];
+        
     }
     
 }
