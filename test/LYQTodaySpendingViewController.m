@@ -28,7 +28,9 @@
 - (IBAction)shoppingButton:(id)sender;
 - (IBAction)otherButton:(id)sender;
 - (IBAction)billsButton:(id)sender;
+- (IBAction)FoodSubButton:(id)sender;
 
+@property (nonatomic) IBOutlet UIView *FoodSubView;
 
 @property (nonatomic)LYQGlobalVariable * GlobalObj; //declare Global singleton class obj
 
@@ -140,18 +142,19 @@
 
 //button action for categories
 - (IBAction)foodButton:(id)sender {
-    _CateIndicator = 0;
+    _CateIndicator = 100;
     _foodPropertyButton.selected = YES;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
     _travelPropertyButton.selected = NO;
     _shoppingPropertyButton.selected = NO;
     _otherPropertyButton.selected = NO;
+    self.FoodSubView.hidden=NO;
     
 }
 
 - (IBAction)transportationButton:(id)sender {
-    _CateIndicator = 1;
+    _CateIndicator = 200;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = YES;
     _billsPropertyButton.selected = NO;
@@ -163,7 +166,7 @@
 
 
 - (IBAction)travelButton:(id)sender {
-    _CateIndicator = 3;
+    _CateIndicator = 400;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -173,7 +176,7 @@
 }
 
 - (IBAction)shoppingButton:(id)sender {
-    _CateIndicator = 4;
+    _CateIndicator = 500;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -183,7 +186,7 @@
 }
 
 - (IBAction)otherButton:(id)sender {
-    _CateIndicator = 5;
+    _CateIndicator = 600;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -193,13 +196,23 @@
 }
 
 - (IBAction)billsButton:(id)sender {
-    _CateIndicator = 2;
+    _CateIndicator = 300;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = YES;
     _travelPropertyButton.selected = NO;
     _shoppingPropertyButton.selected = NO;
     _otherPropertyButton.selected = NO;
+}
+
+- (IBAction)FoodSubButton:(id)sender {
+    for(UIView * button in self.view.subviews)
+    {
+        if(button.tag == [sender tag])
+        {
+            _CateIndicator += button.tag;
+        }
+    }
 }
 
 
