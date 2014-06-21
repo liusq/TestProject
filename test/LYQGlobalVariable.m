@@ -20,6 +20,7 @@
 @synthesize addSpending;
 @synthesize Category;
 @synthesize item;
+@synthesize instantCate;
 static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
 
 //initialize this class as singleton class, also initialize properties
@@ -36,6 +37,7 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
         todaySpending = 0;
         addSpending = 0;
         Category = 10; //10 represent first time use, empty
+        instantCate =10;
         item = [[NSMutableArray alloc]init];    //initialize the mutable array of the singleton class，dynamically
         
     }

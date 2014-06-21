@@ -16,15 +16,15 @@
     float todaySpending;
     float addSpending;
     int Category;
-    
+    int instantCate;
     NSMutableArray *item;
 }
 
 
 @property (nonatomic) float todaySpending;
 @property (nonatomic) float addSpending;
-@property (nonatomic) int Category;// 0-FOOD, 1-Transportation, 2-Bills, 3-Shopping, 4-Travel, 5-Other
-
+@property (nonatomic) int Category;//
+@property (nonatomic) int instantCate;
 @property (nonatomic) NSMutableArray *item;
 
 

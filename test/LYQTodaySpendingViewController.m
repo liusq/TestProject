@@ -51,6 +51,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+      
+
     }
     return self;
 }
@@ -64,8 +66,9 @@
     
     _GlobalObj = [LYQGlobalVariable sharedGlobal];
     _GlobalObj.todaySpending = 0;
+    _GlobalObj.instantCate = 10; //first initialze this indicator as 10, means empty
    _AddSpendingObj = [[LYQAddSpending alloc] init];
-    _CateIndicator = 10; //first initialze this indicator as 10, means empty
+    
     
 }
 
@@ -88,16 +91,13 @@
 
 - (IBAction)BackButton:(id)sender {
     [self.delegate todaySpendingViewControllerDidFinish:self];
-    /*for(LYQAddSpending * temp in _GlobalObj.item)
-    {
-        _GlobalObj.todaySpending += temp.add;
-    }*/
+    
 }
 
 - (IBAction)submit:(id)sender
 {
 
-    if(_CateIndicator==10 || [self.priceText.text isEqualToString:@""])
+    if(_GlobalObj.instantCate==10 || [self.priceText.text isEqualToString:@""])
     {
         UIAlertView* alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning!"
@@ -111,12 +111,13 @@
     }
     else{
         _AddSpendingObj.add = [self.priceText.text floatValue];
-        _AddSpendingObj.SetCategory = _CateIndicator;
+        _GlobalObj.addSpending = _AddSpendingObj.add;
+        _AddSpendingObj.SetCategory = _GlobalObj.instantCate;
         
         
         //pass data to Global singleton class
-        _GlobalObj.addSpending = _AddSpendingObj.add;
-        _GlobalObj.Category = _AddSpendingObj.SetCategory;
+        
+       // _GlobalObj.Category = _AddSpendingObj.SetCategory;
         //dynamic allocate memory for temp
         LYQAddSpending * temp = [[LYQAddSpending alloc] init];
         temp.add = _AddSpendingObj.add;
@@ -125,7 +126,7 @@
         
         //now store temp into Global array for future use
         [_GlobalObj.item addObject:temp ]; //add one item to "item" array
-        _CateIndicator = 10; //reset back to 10;
+        _AddSpendingObj.SetCategory = 10; //reset back to 10;
         
         //prepare for delegate to get back to UserMainUI
         [self.delegate todaySpendingViewControllerDidFinish:self];
@@ -142,7 +143,7 @@
 
 //button action for categories
 - (IBAction)foodButton:(id)sender {
-    _CateIndicator = 100;
+   
     _foodPropertyButton.selected = YES;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -154,7 +155,7 @@
 }
 
 - (IBAction)transportationButton:(id)sender {
-    _CateIndicator = 200;
+ 
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = YES;
     _billsPropertyButton.selected = NO;
@@ -166,7 +167,7 @@
 
 
 - (IBAction)travelButton:(id)sender {
-    _CateIndicator = 400;
+  
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -176,7 +177,7 @@
 }
 
 - (IBAction)shoppingButton:(id)sender {
-    _CateIndicator = 500;
+  
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -186,7 +187,7 @@
 }
 
 - (IBAction)otherButton:(id)sender {
-    _CateIndicator = 600;
+  
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -196,7 +197,7 @@
 }
 
 - (IBAction)billsButton:(id)sender {
-    _CateIndicator = 300;
+  
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = YES;
@@ -210,7 +211,7 @@
     {
         if(button.tag == [sender tag])
         {
-            _CateIndicator += button.tag;
+            _GlobalObj.instantCate = button.tag;
         }
     }
 }
