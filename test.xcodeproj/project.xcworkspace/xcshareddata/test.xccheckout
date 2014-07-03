@@ -5,34 +5,43 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>25CCD71D-05D6-4F37-9961-FF28AFB90400</string>
+	<string>81CD2F00-274A-4081-B63C-068EB912E60C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>test</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>60A1003F-8700-437E-9CE5-9E7D9FF4253F</key>
-		<string>https://github.com/liusq/TestProject.git</string>
+		<key>38CA84FF-E369-4D95-A1F9-CE104C3942AE</key>
+		<string>https://github.com/liusq/TestProject</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>test.xcodeproj/project.xcworkspace</string>
+	<string>trunk/test.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>60A1003F-8700-437E-9CE5-9E7D9FF4253F</key>
-		<string>../..</string>
+		<key>38CA84FF-E369-4D95-A1F9-CE104C3942AE</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>38CA84FF-E369-4D95-A1F9-CE104C3942AE</key>
+		<string>https://github.com/liusq/TestProject</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/liusq/TestProject.git</string>
+	<string>https://github.com/liusq/TestProject/trunk/test.xcodeproj</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>60A1003F-8700-437E-9CE5-9E7D9FF4253F</string>
+	<string>38CA84FF-E369-4D95-A1F9-CE104C3942AE</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
+			<key>IDESourceControlRepositoryBranchesRelativeLocationKey</key>
+			<string>branches</string>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlRepositoryTrunkRelativeLocationKey</key>
+			<string>trunk</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>60A1003F-8700-437E-9CE5-9E7D9FF4253F</string>
+			<string>38CA84FF-E369-4D95-A1F9-CE104C3942AE</string>
 			<key>IDESourceControlWCCName</key>
 			<string>TestProject</string>
 		</dict>

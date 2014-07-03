@@ -28,9 +28,9 @@
 - (IBAction)shoppingButton:(id)sender;
 - (IBAction)otherButton:(id)sender;
 - (IBAction)billsButton:(id)sender;
-- (IBAction)FoodSubButton:(id)sender;
+//- (IBAction)FoodSubButton:(id)sender;
 
-@property (nonatomic) IBOutlet UIView *FoodSubView;
+
 
 @property (nonatomic)LYQGlobalVariable * GlobalObj; //declare Global singleton class obj
 
@@ -40,19 +40,53 @@
 
 @property (nonatomic) int CateIndicator;
 
+@property (strong, nonatomic) IBOutlet UIPickerView *SubCatPicker;
 
+@property (strong,nonatomic) NSArray *FoodSubCatArray;
+@property (strong,nonatomic) NSArray *TransportationSubCatArray;
+@property (strong,nonatomic) NSArray *BillsSubCatArray;
+@property (strong,nonatomic) NSArray *TravelSubCatArray;
+@property (strong,nonatomic) NSArray *ShoppingSubCatArray;
+@property (strong,nonatomic) NSArray *OtherSubCatArray;
+@property (strong, nonatomic)  NSArray *PickerPointer;
 
 @end
 
 @implementation LYQTodaySpendingViewController
+
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [_PickerPointer count];
+}
+
+//delegate definition
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [_PickerPointer objectAtIndex:row];
+}
+
+//setting content and category to global
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    _GlobalObj.instantCate+= row;
+}
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-      
-
+        
+        
     }
     return self;
 }
@@ -67,10 +101,23 @@
     _GlobalObj = [LYQGlobalVariable sharedGlobal];
     _GlobalObj.todaySpending = 0;
     _GlobalObj.instantCate = 10; //first initialze this indicator as 10, means empty
-   _AddSpendingObj = [[LYQAddSpending alloc] init];
+    _AddSpendingObj = [[LYQAddSpending alloc] init];
     
+    //NSArray *foodSubData = [[NSArray alloc] initWithObjects:@"Coffee",@"Meals",@"Snacks", nil];
+    _FoodSubCatArray =[[NSArray alloc] initWithObjects:@"Meals",@"Grocery",@"Snacks", nil];
+    _TransportationSubCatArray = [[NSArray alloc] initWithObjects:@"Bus", nil];
+    _BillsSubCatArray = [[NSArray alloc] initWithObjects:@"phone", nil];
+    _TravelSubCatArray = [[NSArray alloc] initWithObjects:@"Cottage", nil];
+    _ShoppingSubCatArray = [[NSArray alloc] initWithObjects:@"clothing", nil];
+    _OtherSubCatArray = [[NSArray alloc] initWithObjects:@"Other", nil];
+    _PickerPointer = _FoodSubCatArray;
+    //[_SubCatPicker reloadAllComponents];
+    [_SubCatPicker selectedRowInComponent:0];
     
 }
+
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -79,15 +126,15 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (IBAction)BackButton:(id)sender {
     [self.delegate todaySpendingViewControllerDidFinish:self];
@@ -96,7 +143,7 @@
 
 - (IBAction)submit:(id)sender
 {
-
+    
     if(_GlobalObj.instantCate==10 || [self.priceText.text isEqualToString:@""])
     {
         UIAlertView* alert = [[UIAlertView alloc]
@@ -117,11 +164,16 @@
         
         //pass data to Global singleton class
         
-       // _GlobalObj.Category = _AddSpendingObj.SetCategory;
+        //select subcategory from picker view
+        //NSString *select = [_FoodSubCatArray objectAtIndex:[_SubCatPicker selectedRowInComponent:0]];
+        
+        
+        // _GlobalObj.Category = _AddSpendingObj.SetCategory;
         //dynamic allocate memory for temp
         LYQAddSpending * temp = [[LYQAddSpending alloc] init];
         temp.add = _AddSpendingObj.add;
         temp.SetCategory = _AddSpendingObj.SetCategory;
+        
         
         
         //now store temp into Global array for future use
@@ -130,6 +182,7 @@
         
         //prepare for delegate to get back to UserMainUI
         [self.delegate todaySpendingViewControllerDidFinish:self];
+        
         //calculate spending for UserMainUI use
         for(LYQAddSpending * temp in _GlobalObj.item)
         {
@@ -143,19 +196,27 @@
 
 //button action for categories
 - (IBAction)foodButton:(id)sender {
-   
+    _PickerPointer = _FoodSubCatArray;
+    [_SubCatPicker reloadAllComponents];
+    [_SubCatPicker setHidden:NO];
+    _GlobalObj.instantCate=100;
     _foodPropertyButton.selected = YES;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
     _travelPropertyButton.selected = NO;
     _shoppingPropertyButton.selected = NO;
     _otherPropertyButton.selected = NO;
-    self.FoodSubView.hidden=NO;
+    
+    
+    
     
 }
 
 - (IBAction)transportationButton:(id)sender {
- 
+    _PickerPointer = _TransportationSubCatArray;
+    [_SubCatPicker reloadAllComponents];
+    [_SubCatPicker setHidden:NO];
+    _GlobalObj.instantCate=200;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = YES;
     _billsPropertyButton.selected = NO;
@@ -167,7 +228,10 @@
 
 
 - (IBAction)travelButton:(id)sender {
-  
+    _PickerPointer = _TravelSubCatArray;
+    [_SubCatPicker reloadAllComponents];
+    [_SubCatPicker setHidden:NO];
+    _GlobalObj.instantCate=400;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -177,7 +241,7 @@
 }
 
 - (IBAction)shoppingButton:(id)sender {
-  
+    _GlobalObj.instantCate=500;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -187,7 +251,7 @@
 }
 
 - (IBAction)otherButton:(id)sender {
-  
+    _GlobalObj.instantCate=600;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = NO;
@@ -197,7 +261,7 @@
 }
 
 - (IBAction)billsButton:(id)sender {
-  
+    _GlobalObj.instantCate=300;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
     _billsPropertyButton.selected = YES;
@@ -206,26 +270,18 @@
     _otherPropertyButton.selected = NO;
 }
 
-- (IBAction)FoodSubButton:(id)sender {
-    for(UIView * button in self.view.subviews)
-    {
-        if(button.tag == [sender tag])
-        {
-            _GlobalObj.instantCate = button.tag;
-        }
-    }
-}
+
 
 
 //touch anywhere to hide number pad
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-     for (UIView *txt in self.view.subviews )
+    for (UIView *txt in self.view.subviews )
     {
-            if(([txt isKindOfClass: [UITextField class]] && [txt isFirstResponder]))
-            {
-                     [txt resignFirstResponder];
-            }
+        if(([txt isKindOfClass: [UITextField class]] && [txt isFirstResponder]))
+        {
+            [txt resignFirstResponder];
+        }
     }
 }
 

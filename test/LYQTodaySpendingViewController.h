@@ -19,8 +19,11 @@
 @end
 
 
-@interface LYQTodaySpendingViewController : UIViewController
+@interface LYQTodaySpendingViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (weak, nonatomic) id <LYQTodaySpendingViewControlDelegate> delegate;
+
+
+
 
 @end
