@@ -36,9 +36,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _GlobalObj= [LYQGlobalVariable sharedGlobal];
-   
-    self.DateViewer = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,185,200,300)];
-    self.datelabel.font = [UIFont fontWithName:@"Verdana-Bold" size:5.0];
+
+    self.DateViewer.frame = CGRectMake(0, 0, 320, 80);
+    self.DateViewer.transform = CGAffineTransformMakeScale(.5, 0.5);
+    [self.view addSubview:_DateViewer];
 }
 
 - (void)viewDidAppear:(BOOL)animated
