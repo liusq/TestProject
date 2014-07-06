@@ -48,7 +48,7 @@
 @property (strong,nonatomic) NSArray *TravelSubCatArray;
 @property (strong,nonatomic) NSArray *ShoppingSubCatArray;
 @property (strong,nonatomic) NSArray *OtherSubCatArray;
-@property (strong, nonatomic)  NSArray *PickerPointer;
+@property (strong,nonatomic) NSArray *PickerPointer;
 
 @end
 
@@ -104,16 +104,15 @@
     _AddSpendingObj = [[LYQAddSpending alloc] init];
     
     //NSArray *foodSubData = [[NSArray alloc] initWithObjects:@"Coffee",@"Meals",@"Snacks", nil];
-    _FoodSubCatArray =[[NSArray alloc] initWithObjects:@"Meals",@"Grocery",@"Snacks", nil];
-    _TransportationSubCatArray = [[NSArray alloc] initWithObjects:@"Bus", nil];
-    _BillsSubCatArray = [[NSArray alloc] initWithObjects:@"phone", nil];
-    _TravelSubCatArray = [[NSArray alloc] initWithObjects:@"Cottage", nil];
+    _FoodSubCatArray =[[NSArray alloc] initWithObjects:@"Meals",@"Snacks",@"Grocery", nil];
+    _TransportationSubCatArray = [[NSArray alloc] initWithObjects:@"Gasoline",@"Public Transit",@"Parking",@"Taxi", nil];
+    _BillsSubCatArray = [[NSArray alloc] initWithObjects:@"Mobile",@"Electricity/Hydro",@"Insurance",@"Tuition",@"Rental",@"Loans",@"Mortgage",@"Other Fees", nil];
+    _TravelSubCatArray = [[NSArray alloc] initWithObjects:@"Flight",@"Hotel",@"Rental",@"Cottage", nil];
     _ShoppingSubCatArray = [[NSArray alloc] initWithObjects:@"clothing", nil];
-    _OtherSubCatArray = [[NSArray alloc] initWithObjects:@"Other", nil];
+    _OtherSubCatArray = [[NSArray alloc] initWithObjects:@"Health Care",@"Pet Expenses", nil];
     _PickerPointer = _FoodSubCatArray;
     //[_SubCatPicker reloadAllComponents];
     [_SubCatPicker selectedRowInComponent:0];
-    
 }
 
 
@@ -157,11 +156,20 @@
         
     }
     else{
+        //initialize dateformatter for AddDate in AddSpendingObj
+        
+        NSDateFormatter *dateFormat;
+        dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"EEEE"];
+        
         _AddSpendingObj.add = [self.priceText.text floatValue];
         _GlobalObj.addSpending = _AddSpendingObj.add;
         _AddSpendingObj.SetCategory = _GlobalObj.instantCate;
         
-        
+        //store date timestamp into this global
+        _AddSpendingObj.AddDate = [NSDate date];
+    
+      
         //pass data to Global singleton class
         
         //select subcategory from picker view
@@ -173,8 +181,8 @@
         LYQAddSpending * temp = [[LYQAddSpending alloc] init];
         temp.add = _AddSpendingObj.add;
         temp.SetCategory = _AddSpendingObj.SetCategory;
-        
-        
+        temp.AddDate = _AddSpendingObj.AddDate;
+        _GlobalObj.SpendingDate = _AddSpendingObj.AddDate;
         
         //now store temp into Global array for future use
         [_GlobalObj.item addObject:temp ]; //add one item to "item" array
@@ -183,12 +191,28 @@
         //prepare for delegate to get back to UserMainUI
         [self.delegate todaySpendingViewControllerDidFinish:self];
         
+        //get current day component
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+        NSInteger day = [components day];
+        NSInteger month = [components month];
+        NSInteger year = [components year];
         //calculate spending for UserMainUI use
         for(LYQAddSpending * temp in _GlobalObj.item)
         {
-            _GlobalObj.todaySpending += temp.add;
+            //get the global array object day component and do comparison
+             NSDateComponents *tempcomponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:temp.AddDate];
+            NSInteger tempday = [tempcomponents day];
+            NSInteger tempmonth = [tempcomponents month];
+            NSInteger tempyear = [tempcomponents year];
+            
+           //
+            //if(tempday != day || tempmonth!= month || tempyear!= year)
+            if(tempday==day&& tempmonth==month && tempyear==year)
+            {
+                _GlobalObj.todaySpending += temp.add;
+            }
         }
-        
+        [_GlobalObj SaveDate];
     }
     
 }
@@ -241,6 +265,9 @@
 }
 
 - (IBAction)shoppingButton:(id)sender {
+    _PickerPointer = _ShoppingSubCatArray;
+    [_SubCatPicker reloadAllComponents];
+    [_SubCatPicker setHidden:NO];
     _GlobalObj.instantCate=500;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
@@ -251,6 +278,9 @@
 }
 
 - (IBAction)otherButton:(id)sender {
+    _PickerPointer = _OtherSubCatArray;
+    [_SubCatPicker reloadAllComponents];
+    [_SubCatPicker setHidden:NO];
     _GlobalObj.instantCate=600;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;
@@ -261,6 +291,9 @@
 }
 
 - (IBAction)billsButton:(id)sender {
+    _PickerPointer = _BillsSubCatArray;
+    [_SubCatPicker reloadAllComponents];
+    [_SubCatPicker setHidden:NO];
     _GlobalObj.instantCate=300;
     _foodPropertyButton.selected = NO;
     _transportationPropertyButton.selected = NO;

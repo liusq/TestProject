@@ -13,10 +13,11 @@
 
     float add;
     int SetCategory;
+    NSDate * AddDate;
 }
 
 @property (nonatomic) float add;
 @property (nonatomic) int SetCategory;// 0-FOOD, 1-Transportation, 2-Bills, 3-Shopping, 4-Travel, 5-Other
-
+@property (nonatomic) NSDate * AddDate;
 
 @end

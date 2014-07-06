@@ -11,6 +11,8 @@
 
 @interface LYQUserMainViewController ()
 @property (nonatomic) IBOutlet UITextField *TodaySpendingField;
+@property (nonatomic, retain) IBOutlet UIDatePicker *DateViewer;
+@property(nonatomic,retain) IBOutlet UILabel *datelabel;
 
 @property (nonatomic)LYQGlobalVariable * GlobalObj; //declare Global singleton class obj
 @end
@@ -26,20 +28,25 @@
     return self;
 }
 
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _GlobalObj= [LYQGlobalVariable sharedGlobal];
    
-    
-    
+    self.DateViewer = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,185,200,300)];
+    self.datelabel.font = [UIFont fontWithName:@"Verdana-Bold" size:5.0];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     NSString * temp =[NSString stringWithFormat:@"%1.2f", _GlobalObj.todaySpending];
     _TodaySpendingField.text = temp;
+    [_DateViewer setDate:_GlobalObj.SpendingDate animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning

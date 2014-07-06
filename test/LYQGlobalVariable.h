@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-
 @interface LYQGlobalVariable : NSObject
 {
     //set private variables
@@ -18,6 +17,7 @@
     int Category;
     int instantCate;
     NSMutableArray *item;
+    NSDate * SpendingDate;//stores the latest transection date
 }
 
 
@@ -26,7 +26,11 @@
 @property (nonatomic) int Category;//
 @property (nonatomic) int instantCate;
 @property (nonatomic) NSMutableArray *item;
+@property (nonatomic) NSDate * SpendingDate;
 
+-(NSString *)GetFilePath;
+-(void) SaveDate;
+-(void) LoadDate;
 
 + (LYQGlobalVariable *) sharedGlobal;
 @end

@@ -12,7 +12,7 @@
 
 @synthesize add;
 @synthesize SetCategory;
-
+@synthesize AddDate;
 LYQAddSpending * AddSpending;
 
 + (LYQAddSpending *)InitAddSpending
@@ -28,6 +28,7 @@ LYQAddSpending * AddSpending;
         SetCategory = 10;
         
     }
+    
     return self;
 }
 

@@ -21,6 +21,7 @@
 @synthesize Category;
 @synthesize item;
 @synthesize instantCate;
+@synthesize SpendingDate;
 static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
 
 //initialize this class as singleton class, also initialize properties
@@ -39,9 +40,35 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
         Category = 10; //10 represent first time use, empty
         instantCate =10;
         item = [[NSMutableArray alloc]init];    //initialize the mutable array of the singleton class，dynamically
-        
+        SpendingDate = [NSDate date];
+        [self LoadDate];
     }
     return self;
+}
+
+-(NSString *)GetFilePath
+{
+    NSArray *filepath = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    return [[filepath objectAtIndex:0] stringByAppendingPathComponent:@"saved.xml"];
+}
+
+-(void) SaveDate
+{
+    NSArray * value = [[NSArray alloc] initWithObjects:item, nil];
+    [value writeToFile:[self GetFilePath] atomically:YES];
+}
+
+-(void) LoadDate
+{
+    NSString * path = [self GetFilePath];
+    bool FileExist = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    
+    if(FileExist)
+    {
+        NSArray * value = [[NSArray alloc] initWithContentsOfFile:path];
+        item = [value objectAtIndex:0];
+    }
+    
 }
 
 -(void)dealloc {

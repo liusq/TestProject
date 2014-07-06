@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "LYQTodaySpendingViewController.h"
 
-@interface LYQUserMainViewController : UIViewController
+@interface LYQUserMainViewController : UIViewController <UIPickerViewDelegate>
 
 @end
