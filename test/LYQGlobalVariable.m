@@ -22,6 +22,7 @@
 @synthesize item;
 @synthesize instantCate;
 @synthesize SpendingDate;
+@synthesize spendingLimit;
 static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
 
 //initialize this class as singleton class, also initialize properties
@@ -39,6 +40,7 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
         addSpending = 0;
         Category = 10; //10 represent first time use, empty
         instantCate =10;
+        spendingLimit = 100;
         item = [[NSMutableArray alloc]init];    //initialize the mutable array of the singleton class，dynamically
         SpendingDate = [NSDate date];
         [self LoadDate];
@@ -54,6 +56,7 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
 
 -(void) SaveDate
 {
+    //write to file for the global array, however now having issue creating file
     NSArray * value = [[NSArray alloc] initWithObjects:item, nil];
     [value writeToFile:[self GetFilePath] atomically:YES];
 }
