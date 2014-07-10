@@ -8,7 +8,7 @@
 
 #import "LYQUserMainViewController.h"
 #import "LYQGlobalVariable.h"
-
+#import "LYQAddSpending.h"
 @interface LYQUserMainViewController ()
 @property (nonatomic) IBOutlet UITextField *TodaySpendingField;
 @property (nonatomic, retain) IBOutlet UIDatePicker *DateViewer;
@@ -72,9 +72,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     _GlobalObj= [LYQGlobalVariable sharedGlobal];
-
+    //initialize the load from file, to show todayspending number
+    //--------------------calculation for the first time load from file to display on main user viewer------------------------
+    NSString * path = [_GlobalObj GetFilePath];
+    bool FileExist = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    if(FileExist){
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+        NSInteger day = [components day];
+        NSInteger month = [components month];
+        NSInteger year = [components year];
+        //calculate spending for UserMainUI use
+        for(LYQAddSpending * temp in _GlobalObj.item)
+        {
+            //get the global array object day component and do comparison
+            NSDateComponents *tempcomponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:temp.AddDate];
+            NSInteger tempday = [tempcomponents day];
+            NSInteger tempmonth = [tempcomponents month];
+            NSInteger tempyear = [tempcomponents year];
+            
+            //
+            //if(tempday != day || tempmonth!= month || tempyear!= year)
+            if(tempday==day&& tempmonth==month && tempyear==year)
+            {
+                _GlobalObj.todaySpending += temp.add;
+            }
+        }
+    }
+    //----------------------------------------------------------------------------------------------------------------------------
+    
+  //  NSString * temp =[NSString stringWithFormat:@"%1.2f", _GlobalObj.todaySpending];
+   // _TodaySpendingField.text = temp;
     self.DateViewer.frame = CGRectMake(0, 0, 320, 80);
     self.DateViewer.transform = CGAffineTransformMakeScale(.6, 0.6);
     [self.view addSubview:_DateViewer];
@@ -84,6 +114,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+   
     NSString * temp =[NSString stringWithFormat:@"%1.2f", _GlobalObj.todaySpending];
     _TodaySpendingField.text = temp;
     [_DateViewer setDate:_GlobalObj.SpendingDate animated:YES];

@@ -26,6 +26,25 @@
 static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
 
 //initialize this class as singleton class, also initialize properties
+
+
+//encoding and decoding the mutablearray
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self != nil) {
+        [self setItem:[decoder decodeObjectForKey:@"item"]];
+        return self;
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+  [encoder encodeObject:self.item   forKey:@"item"];
+}
+
+
+
+
 + (LYQGlobalVariable *)sharedGlobal
 {
     if (sharedGlobalObj == nil) {
@@ -51,14 +70,19 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
 -(NSString *)GetFilePath
 {
     NSArray *filepath = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
-    return [[filepath objectAtIndex:0] stringByAppendingPathComponent:@"saved.xml"];
+    return [[filepath objectAtIndex:0] stringByAppendingPathComponent:@"saved.plist"];
 }
 
 -(void) SaveDate
 {
     //write to file for the global array, however now having issue creating file
-    NSArray * value = [[NSArray alloc] initWithObjects:item, nil];
-    [value writeToFile:[self GetFilePath] atomically:YES];
+   /* NSData* itemData = [NSKeyedArchiver archivedDataWithRootObject:self.item];
+   // NSArray * value = [[NSArray alloc] initWithObjects:self.item, nil];
+    [[NSUserDefaults standardUserDefaults] setObject:itemData forKey:@"saveddata"];
+    [itemData writeToFile:[self GetFilePath] atomically:YES];*/
+   
+    [NSKeyedArchiver archiveRootObject:self.item toFile:[self GetFilePath]];
+
 }
 
 -(void) LoadDate
@@ -68,8 +92,11 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
     
     if(FileExist)
     {
-        NSArray * value = [[NSArray alloc] initWithContentsOfFile:path];
-        item = [value objectAtIndex:0];
+        
+       // NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"saveddata"];
+        self.item = [NSKeyedUnarchiver unarchiveObjectWithFile:[self GetFilePath]];
+ 
+
     }
     
 }

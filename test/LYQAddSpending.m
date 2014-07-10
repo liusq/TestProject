@@ -15,6 +15,24 @@
 @synthesize AddDate;
 LYQAddSpending * AddSpending;
 
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self != nil) {
+        [self setAddDate:[decoder decodeObjectForKey:@"AddDate"]];
+        [self setAdd:[decoder decodeFloatForKey:@"Add"]];
+        [self setSetCategory:[decoder decodeIntegerForKey:@"SetCategory"]];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeFloat:self.add forKey:@"Add"];
+    [encoder encodeInteger:self.add forKey:@"SetCategory"];
+    [encoder encodeObject:self.AddDate  forKey:@"AddDate"];
+}
+
+
 + (LYQAddSpending *)InitAddSpending
 {
         AddSpending = [[super alloc] init];

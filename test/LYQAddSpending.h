@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LYQAddSpending : NSObject
+@interface LYQAddSpending : NSObject <NSCoding>
 {
 
     float add;

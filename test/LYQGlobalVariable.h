@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface LYQGlobalVariable : NSObject
+@interface LYQGlobalVariable : NSObject<NSCoding>
 {
     //set private variables
     float todaySpending;
