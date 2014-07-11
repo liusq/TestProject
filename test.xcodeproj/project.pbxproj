@@ -21,7 +21,6 @@
 		1549475B192448D400A745CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1549473D192448D400A745CC /* UIKit.framework */; };
 		15494763192448D400A745CC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15494761192448D400A745CC /* InfoPlist.strings */; };
 		15494765192448D400A745CC /* testTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15494764192448D400A745CC /* testTests.m */; };
-		154947701924567C00A745CC /* LYQRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549476F1924567C00A745CC /* LYQRegisterViewController.m */; };
 		155FA6E619325F19003F684A /* LYQTodaySpendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155FA6E519325F19003F684A /* LYQTodaySpendingViewController.m */; };
 		155FA6E919326227003F684A /* LYQGlobalVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 155FA6E819326227003F684A /* LYQGlobalVariable.m */; };
 		15603E7A1936C008006992BC /* LYQAddSpending.m in Sources */ = {isa = PBXBuildFile; fileRef = 15603E791936C008006992BC /* LYQAddSpending.m */; };
@@ -58,8 +57,6 @@
 		15494760192448D400A745CC /* testTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "testTests-Info.plist"; sourceTree = "<group>"; };
 		15494762192448D400A745CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		15494764192448D400A745CC /* testTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testTests.m; sourceTree = "<group>"; };
-		1549476E1924567C00A745CC /* LYQRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYQRegisterViewController.h; sourceTree = "<group>"; };
-		1549476F1924567C00A745CC /* LYQRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYQRegisterViewController.m; sourceTree = "<group>"; };
 		155FA6E419325F19003F684A /* LYQTodaySpendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYQTodaySpendingViewController.h; sourceTree = "<group>"; };
 		155FA6E519325F19003F684A /* LYQTodaySpendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYQTodaySpendingViewController.m; sourceTree = "<group>"; };
 		155FA6E719326227003F684A /* LYQGlobalVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYQGlobalVariable.h; sourceTree = "<group>"; };
@@ -138,8 +135,6 @@
 				155FA6E519325F19003F684A /* LYQTodaySpendingViewController.m */,
 				1582C01F193130F10062447C /* LYQUserMainViewController.h */,
 				1582C020193130F10062447C /* LYQUserMainViewController.m */,
-				1549476E1924567C00A745CC /* LYQRegisterViewController.h */,
-				1549476F1924567C00A745CC /* LYQRegisterViewController.m */,
 				1549474E192448D400A745CC /* LYQViewController.h */,
 				1549474F192448D400A745CC /* LYQViewController.m */,
 				15494751192448D400A745CC /* Images.xcassets */,
@@ -278,7 +273,6 @@
 				155FA6E619325F19003F684A /* LYQTodaySpendingViewController.m in Sources */,
 				155FA6E919326227003F684A /* LYQGlobalVariable.m in Sources */,
 				15603E7A1936C008006992BC /* LYQAddSpending.m in Sources */,
-				154947701924567C00A745CC /* LYQRegisterViewController.m in Sources */,
 				15494746192448D400A745CC /* main.m in Sources */,
 				1582C021193130F10062447C /* LYQUserMainViewController.m in Sources */,
 				15494750192448D400A745CC /* LYQViewController.m in Sources */,

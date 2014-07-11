@@ -7,7 +7,6 @@
 //
 
 #import "LYQViewController.h" 
-#import "LYQRegisterViewController.h"
 
 @interface LYQViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *localInfoText;
@@ -31,20 +30,15 @@
 }
 
 //set bridge(address/pointer) for future return, without this connection is lost
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+/*- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([[segue identifier] isEqualToString:@"showRegister"])
     {
         [[segue destinationViewController] setDelegate:self];
     }
-}
+}*/
 
 
-//perform register finish action from main UI (will return back to main UI) 
-- (void) registerViewControllerDidFinish:(LYQRegisterViewController *)controller
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (IBAction)buttonLocalInfo:(id)sender {
     self.localInfoText.text = @"hello world";

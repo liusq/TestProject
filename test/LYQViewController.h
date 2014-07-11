@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LYQRegisterViewController.h"
 
-@interface LYQViewController : UIViewController <LYQRegisterViewControllerDelegate>
+@interface LYQViewController : UIViewController
 
 
 @end
