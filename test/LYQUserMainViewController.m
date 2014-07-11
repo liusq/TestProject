@@ -80,7 +80,7 @@
     NSString * path = [_GlobalObj GetFilePath];
     bool FileExist = [[NSFileManager defaultManager] fileExistsAtPath:path];
     if(FileExist){
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+       /* NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
         NSInteger day = [components day];
         NSInteger month = [components month];
         NSInteger year = [components year];
@@ -99,7 +99,9 @@
             {
                 _GlobalObj.todaySpending += temp.add;
             }
-        }
+        }*/
+        
+        [_GlobalObj calculateTodaySpending];
     }
     //----------------------------------------------------------------------------------------------------------------------------
     

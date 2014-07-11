@@ -19,6 +19,8 @@
     float spendingLimit;
     NSMutableArray *item;
     NSDate * SpendingDate;//stores the latest transection date
+   // NSNumber *temp;
+    
 }
 
 
@@ -29,10 +31,14 @@
 @property (nonatomic) float spendingLimit;
 @property (nonatomic) NSMutableArray *item;
 @property (nonatomic) NSDate * SpendingDate;
+//@property (nonatomic) NSNumber * temp;
+
+//@property (nonatomic) NSNumber * temp;
 
 -(NSString *)GetFilePath;
 -(void) SaveDate;
 -(void) LoadDate;
+-(void) calculateTodaySpending;
 
 + (LYQGlobalVariable *) sharedGlobal;
 @end

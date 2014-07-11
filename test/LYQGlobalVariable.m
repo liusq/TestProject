@@ -7,6 +7,7 @@
 //
 
 #import "LYQGlobalVariable.h"
+#import "LYQAddSpending.h"
 
 
 
@@ -61,6 +62,7 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
         instantCate =10;
         spendingLimit = 100;
         item = [[NSMutableArray alloc]init];    //initialize the mutable array of the singleton class，dynamically
+        
         SpendingDate = [NSDate date];
         [self LoadDate];
     }
@@ -99,6 +101,33 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
 
     }
     
+}
+
+-(void)calculateTodaySpending
+{
+    //get current day component
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSInteger day = [components day];
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+    //calculate spending for UserMainUI use
+    
+    for(LYQAddSpending * temp in item)
+    {
+        //get the global array object day component and do comparison
+        NSDateComponents *tempcomponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:temp.AddDate];
+        NSInteger tempday = [tempcomponents day];
+        NSInteger tempmonth = [tempcomponents month];
+        NSInteger tempyear = [tempcomponents year];
+        
+        //
+        //if(tempday != day || tempmonth!= month || tempyear!= year)
+        if(tempday==day&& tempmonth==month && tempyear==year)
+        {
+            self.todaySpending += temp.add;
+        }
+    }
+
 }
 
 -(void)dealloc {

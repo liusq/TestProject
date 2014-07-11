@@ -191,6 +191,8 @@
         //prepare for delegate to get back to UserMainUI
         [self.delegate todaySpendingViewControllerDidFinish:self];
         
+        
+        /*
         //get current day component
         NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
         NSInteger day = [components day];
@@ -212,6 +214,10 @@
                 _GlobalObj.todaySpending += temp.add;
             }
         }
+         */
+        
+        [_GlobalObj calculateTodaySpending];
+        
         [_GlobalObj SaveDate];
     }
     
