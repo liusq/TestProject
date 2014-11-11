@@ -8,7 +8,7 @@
 
 #import "LYQGlobalVariable.h"
 #import "LYQAddSpending.h"
-
+#import "LYQArrayClassObject.h"
 
 
 
@@ -23,7 +23,7 @@
 @synthesize item;
 @synthesize instantCate;
 @synthesize SpendingDate;
-@synthesize spendingLimit;
+@synthesize todaySpendingLimit;
 static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
 
 //initialize this class as singleton class, also initialize properties
@@ -60,7 +60,7 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
         addSpending = 0;
         Category = 10; //10 represent first time use, empty
         instantCate =10;
-        spendingLimit = 100;
+        todaySpendingLimit = 100;
         item = [[NSMutableArray alloc]init];    //initialize the mutable array of the singleton class，dynamically
         
         SpendingDate = [NSDate date];
@@ -103,6 +103,33 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
     
 }
 
+
+-(void)calculateMonthSpending
+{
+    //get current day component
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+    //calculate spending for UserMainUI use
+    
+    for(LYQAddSpending * temp in item)
+    {
+        //get the global array object day component and do comparison
+        NSDateComponents *tempcomponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:temp.AddDate];
+        NSInteger tempmonth = [tempcomponents month];
+        NSInteger tempyear = [tempcomponents year];
+        
+        //
+        //if(tempday != day || tempmonth!= month || tempyear!= year)
+        if(tempmonth==month && tempyear==year)
+        {
+            //self.todaySpending += temp.add;
+            //store according objects into a new array or just do operation of main user view here
+            
+        }
+    }
+}
+
 -(void)calculateTodaySpending
 {
     //get current day component
@@ -125,10 +152,15 @@ static  LYQGlobalVariable *sharedGlobalObj = nil;    // static instance variable
         if(tempday==day&& tempmonth==month && tempyear==year)
         {
             self.todaySpending += temp.add;
+            //might also need to store according objects into anoter array for future use
         }
     }
 
 }
+
+
+
+//getting info for main user view controller
 
 -(void)dealloc {
     //should not be called, just for clarity

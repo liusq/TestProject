@@ -134,12 +134,18 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="MdX-G5-cVW">
+                                <rect key="frame" x="40" y="191" width="224" height="284"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="DateViewer" destination="xcH-cp-3oj" id="rf0-es-Qqh"/>
                         <outlet property="TodaySpendingField" destination="SSt-cR-Cxn" id="Olw-2y-Yue"/>
+                        <outlet property="TransactionTable" destination="MdX-G5-cVW" id="o5Q-05-MAK"/>
                         <outlet property="progressBar" destination="wWR-Cy-TOQ" id="WKT-EU-Y6Q"/>
                         <outlet property="progressLabel" destination="V7e-Vg-SZu" id="WOL-Ld-WEm"/>
                     </connections>

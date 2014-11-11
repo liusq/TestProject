@@ -16,7 +16,7 @@
     float addSpending;
     int Category;
     int instantCate;
-    float spendingLimit;
+    float todaySpendingLimit;
     NSMutableArray *item;
     NSDate * SpendingDate;//stores the latest transection date
    // NSNumber *temp;
@@ -28,7 +28,7 @@
 @property (nonatomic) float addSpending;
 @property (nonatomic) int Category;//
 @property (nonatomic) int instantCate;
-@property (nonatomic) float spendingLimit;
+@property (nonatomic) float todaySpendingLimit;
 @property (nonatomic) NSMutableArray *item;
 @property (nonatomic) NSDate * SpendingDate;
 //@property (nonatomic) NSNumber * temp;
@@ -39,6 +39,6 @@
 -(void) SaveDate;
 -(void) LoadDate;
 -(void) calculateTodaySpending;
-
+-(void) calculateMonthSpending;
 + (LYQGlobalVariable *) sharedGlobal;
 @end

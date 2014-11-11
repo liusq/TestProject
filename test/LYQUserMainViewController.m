@@ -9,6 +9,7 @@
 #import "LYQUserMainViewController.h"
 #import "LYQGlobalVariable.h"
 #import "LYQAddSpending.h"
+#import "LYQArrayClassObject.h"
 @interface LYQUserMainViewController ()
 @property (nonatomic) IBOutlet UITextField *TodaySpendingField;
 @property (nonatomic, retain) IBOutlet UIDatePicker *DateViewer;
@@ -17,6 +18,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 
 @property (nonatomic)LYQGlobalVariable * GlobalObj; //declare Global singleton class obj
+@property (weak, nonatomic) IBOutlet UITableView *TransactionTable;
+
+@property (nonatomic) LYQArrayClassObject* transactionObject;
 @end
 
 @implementation LYQUserMainViewController
@@ -26,7 +30,7 @@
     
     float actual = [self.progressBar progress];
     if (actual < 1) {
-        self.progressBar.progress =  ((float)_GlobalObj.todaySpending/(float)_GlobalObj.spendingLimit);
+        self.progressBar.progress =  ((float)_GlobalObj.todaySpending/(float)_GlobalObj.todaySpendingLimit);
         [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(makeMyProgressBarMoving) userInfo:nil repeats:NO];
         if((float)actual<0.7)
         {
@@ -39,7 +43,7 @@
     }
     else if(actual == 1)
     {
-        if((float)_GlobalObj.todaySpending>(float)_GlobalObj.spendingLimit)
+        if((float)_GlobalObj.todaySpending>(float)_GlobalObj.todaySpendingLimit)
         {
             [self.progressBar setProgressTintColor:[UIColor redColor]];
         }
@@ -75,6 +79,7 @@
     
     // Do any additional setup after loading the view.
     _GlobalObj= [LYQGlobalVariable sharedGlobal];
+    _transactionObject = [[LYQArrayClassObject alloc] init];
     //initialize the load from file, to show todayspending number
     //--------------------calculation for the first time load from file to display on main user viewer------------------------
     NSString * path = [_GlobalObj GetFilePath];
@@ -102,6 +107,9 @@
         }*/
         
         [_GlobalObj calculateTodaySpending];
+        [_transactionObject PrepareForMonthTransectionArray];   //for testing purpose only
+        [_transactionObject PrepareForDailyTransectionArray];
+        [_transactionObject PrepareForYearTransectionArray];
     }
     //----------------------------------------------------------------------------------------------------------------------------
     
@@ -112,6 +120,14 @@
     [self.view addSubview:_DateViewer];
     
      _progressBar.progress = 0.0;
+  /*  CGRect temp;
+    temp.origin.x = 150;
+    temp.origin.y = 200;
+    temp.size.height =0.8;
+    temp.size.width =0.8;
+    
+   //[_TransactionTable initWithFrame:temp style:UITableViewStylePlain];
+    _TransactionTable.hidden = NO;*/  //does not control the UI
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -120,9 +136,9 @@
     NSString * temp =[NSString stringWithFormat:@"%1.2f", _GlobalObj.todaySpending];
     _TodaySpendingField.text = temp;
     [_DateViewer setDate:_GlobalObj.SpendingDate animated:YES];
-    if(_GlobalObj.spendingLimit >= _GlobalObj.todaySpending)
+    if(_GlobalObj.todaySpendingLimit >= _GlobalObj.todaySpending)
     {
-        if(((float)_GlobalObj.spendingLimit - (float)_GlobalObj.todaySpending)/((float)_GlobalObj.spendingLimit )> 0.3 )
+        if(((float)_GlobalObj.todaySpendingLimit - (float)_GlobalObj.todaySpending)/((float)_GlobalObj.todaySpendingLimit )> 0.3 )
         {
             self.progressLabel.text = @"On track";
             self.progressLabel.textColor = [UIColor greenColor];
@@ -134,7 +150,7 @@
         }
     }
     //make risk option for user, need to implement further
-    else if(_GlobalObj.spendingLimit < _GlobalObj.todaySpending)
+    else if(_GlobalObj.todaySpendingLimit < _GlobalObj.todaySpending)
     {
         self.progressLabel.text = @"Exceeded";
         self.progressLabel.textColor = [UIColor redColor];
@@ -158,6 +174,22 @@
     }
     
 }
+
+//setting table view rows and section
+/*
+-(NSInteger)numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+//setting section of the table
+- (NSInteger)numberOfSections
+{
+    return 1;
+}
+ */
+
+
 /*
 #pragma mark - Navigation
 
